@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <windows.h>
 #include "SDL2/SDL.h"
 #include "chip8.h"
 #include "chip8keyboard.h"
@@ -82,6 +83,12 @@ int main(int argc, char **argv)
             }
         }
         SDL_RenderPresent(renderer);
+
+        if(chip8.registers.delay_timer > 0)
+        {
+            Sleep(100);
+            chip8.registers.delay_timer -= 1;
+        }
     }
 out:
     SDL_DestroyWindow(window);
